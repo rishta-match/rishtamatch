@@ -6,7 +6,7 @@ A simple, modern matrimony web app (demo). Free to host on GitHub Pages.
 
 - Modern mobile-first design with bottom navigation and dark mode
 - English / Hindi toggle
-- Browse sample profiles, filter by gender, city, religion and age, sort by best match
+- 1000 sample profiles across 100 Indian cities (7 brides + 3 grooms per city); filter by gender, state, city, religion and age; "Load more" paging
 - Match % score (after you create your own profile)
 - Profile detail sheet, shortlist, send interest
 - Create your profile with photo upload (saved only in your browser)
@@ -18,7 +18,8 @@ A simple, modern matrimony web app (demo). Free to host on GitHub Pages.
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The whole app |
+| `index.html` | The app (UI and logic) |
+| `profiles.js` | Generates the 1000 fictional sample profiles and illustrated avatars |
 | `manifest.json`, `sw.js`, `icon.svg` | Install-as-app and offline support |
 | `privacy.html`, `terms.html` | Legal pages (get them reviewed by a lawyer before real launch) |
 

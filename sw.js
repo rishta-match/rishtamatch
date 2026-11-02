@@ -1,5 +1,5 @@
-const CACHE = "rishtamatch-v2";
-const FILES = ["./", "index.html", "privacy.html", "terms.html", "manifest.json", "icon.svg"];
+const CACHE = "rishtamatch-v3";
+const FILES = ["./", "index.html", "profiles.js", "privacy.html", "terms.html", "manifest.json", "icon.svg"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));

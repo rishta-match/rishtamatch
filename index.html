@@ -36,7 +36,7 @@ main{max-width:980px;margin:auto;padding:14px}
 .stats{display:flex;gap:18px;margin-top:20px;font-size:12px}
 .stats b{display:block;font-size:19px;font-family:'Playfair Display',serif}
 .filters{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
-@media(min-width:700px){.filters{grid-template-columns:repeat(6,1fr)}.filters .wide{grid-column:span 3}.hero h1{font-size:40px}}
+@media(min-width:700px){.filters{grid-template-columns:repeat(4,1fr)}.filters .wide{grid-column:span 1}.hero h1{font-size:40px}}
 input,select,textarea{padding:11px;border:1px solid var(--line);border-radius:12px;font-size:14px;font-family:inherit;width:100%;background:var(--card);color:var(--text)}
 .filters .wide{grid-column:span 2}
 .sec{display:flex;justify-content:space-between;align-items:center;margin:6px 2px 12px}
@@ -98,17 +98,18 @@ nav.bottom i{position:absolute;top:0;right:26%;background:var(--maroon);color:#f
 <nav class="bottom" id="nav"></nav>
 <div id="modal"></div>
 
+<script src="profiles.js"></script>
 <script>
 /* ---------- translations ---------- */
 const T={
 en:{h:"Find your life partner",p:"A simple, safe and free place to find a match. Create your profile in a minute.",cta:"Create free profile",share:"Share on WhatsApp",s1:"Sample profiles",s2:"Cities",s3:"Free",
 browse:"Browse",short:"Shortlist",sent:"Interests",mine:"My Profile",
 allG:"Brides & Grooms",brides:"Brides",grooms:"Grooms",allC:"All Cities",allR:"All Religions",minA:"Min age",maxA:"Max age",search:"Search name, job, education…",
-sortM:"Sort: Best match",sortA:"Sort: Age",found:"profiles",noMatch:"No matches. Try changing filters.",noShort:"No shortlisted profiles yet.",noSent:"You haven't sent any interest yet.",
+sortM:"Sort: Recommended",allS:"All States",more:"Load more",sortA:"Sort: Age",found:"profiles",noMatch:"No matches. Try changing filters.",noShort:"No shortlisted profiles yet.",noSent:"You haven't sent any interest yet.",
 sl:"☆ Shortlist",sld:"✓ Shortlisted",si:"Send Interest",sid:"✓ Interest Sent",match:"match",
 createH:"Create / Edit your profile",save:"Save Profile",name:"Full name",gender:"Gender",male:"Male",female:"Female",age:"Age",city:"City",edu:"Education",job:"Profession",comm:"Community / Caste",rel:"Religion",height:"Height",diet:"Diet",veg:"Vegetarian",nonveg:"Non-vegetarian",bio:"About me",photo:"Profile photo",
 savedNote:"Your profile is saved only on this device (browser storage). Real accounts and a database are coming soon.",
-demo:"ℹ️ These are sample profiles for demo only. Real members will appear once login & database are added.",
+demo:"ℹ️ Demo only: all 1000 profiles are fictional samples, and the photos are illustrated avatars, not real people. Real members will appear once login & database are added.",
 safeH:"Stay safe",safe:["Never send money to anyone you meet online.","Meet first in a public place with family.","Verify job, family and documents before deciding.","Use Report if something looks wrong."],
 storyH:"Success stories",storyP:"Your story could be first here. After you find your match, tell us and we will feature it (with your permission).",
 report:"Report",block:"Block",close:"Close",wa:"Share",reported:"Thanks, profile reported and hidden.",confirmR:"Report this profile and hide it?",blocked:"Profile hidden.",
@@ -116,35 +117,22 @@ priv:"Privacy",terms:"Terms",rights:"Made with ❤️ in Rajasthan",install:"Ins
 hi:{h:"अपना जीवनसाथी ढूंढें",p:"रिश्ता ढूंढने की आसान, सुरक्षित और मुफ़्त जगह। एक मिनट में अपनी प्रोफ़ाइल बनाएं।",cta:"फ्री प्रोफ़ाइल बनाएं",share:"WhatsApp पर शेयर करें",s1:"सैंपल प्रोफ़ाइल",s2:"शहर",s3:"मुफ़्त",
 browse:"खोजें",short:"शॉर्टलिस्ट",sent:"इंटरेस्ट",mine:"मेरी प्रोफ़ाइल",
 allG:"दुल्हन और दूल्हा",brides:"दुल्हन",grooms:"दूल्हा",allC:"सभी शहर",allR:"सभी धर्म",minA:"न्यूनतम उम्र",maxA:"अधिकतम उम्र",search:"नाम, काम, शिक्षा खोजें…",
-sortM:"क्रम: बेस्ट मैच",sortA:"क्रम: उम्र",found:"प्रोफ़ाइल",noMatch:"कोई मैच नहीं मिला। फ़िल्टर बदलकर देखें।",noShort:"अभी कोई शॉर्टलिस्ट नहीं है।",noSent:"आपने अभी तक कोई इंटरेस्ट नहीं भेजा।",
+sortM:"क्रम: सुझाए गए",allS:"सभी राज्य",more:"और दिखाएं",sortA:"क्रम: उम्र",found:"प्रोफ़ाइल",noMatch:"कोई मैच नहीं मिला। फ़िल्टर बदलकर देखें।",noShort:"अभी कोई शॉर्टलिस्ट नहीं है।",noSent:"आपने अभी तक कोई इंटरेस्ट नहीं भेजा।",
 sl:"☆ शॉर्टलिस्ट",sld:"✓ शॉर्टलिस्टेड",si:"इंटरेस्ट भेजें",sid:"✓ इंटरेस्ट भेजा",match:"मैच",
 createH:"अपनी प्रोफ़ाइल बनाएं / बदलें",save:"प्रोफ़ाइल सेव करें",name:"पूरा नाम",gender:"लिंग",male:"पुरुष",female:"महिला",age:"उम्र",city:"शहर",edu:"शिक्षा",job:"काम / व्यवसाय",comm:"समाज / जाति",rel:"धर्म",height:"कद",diet:"खान-पान",veg:"शाकाहारी",nonveg:"मांसाहारी",bio:"मेरे बारे में",photo:"प्रोफ़ाइल फोटो",
 savedNote:"आपकी प्रोफ़ाइल सिर्फ़ इसी डिवाइस (ब्राउज़र) में सेव है। असली अकाउंट और डेटाबेस जल्द आ रहे हैं।",
-demo:"ℹ️ ये सिर्फ़ डेमो के लिए सैंपल प्रोफ़ाइल हैं। लॉगिन और डेटाबेस जुड़ने पर असली सदस्य दिखेंगे।",
+demo:"ℹ️ सिर्फ़ डेमो: सभी 1000 प्रोफ़ाइल काल्पनिक सैंपल हैं और फोटो बनाए गए अवतार हैं, असली लोग नहीं। लॉगिन और डेटाबेस जुड़ने पर असली सदस्य दिखेंगे।",
 safeH:"सुरक्षित रहें",safe:["ऑनलाइन मिले किसी को कभी पैसे न भेजें।","पहले परिवार के साथ सार्वजनिक जगह पर मिलें।","फ़ैसले से पहले नौकरी, परिवार और दस्तावेज़ जांचें।","कुछ गलत लगे तो रिपोर्ट करें।"],
 storyH:"सफलता की कहानियां",storyP:"पहली कहानी आपकी हो सकती है। रिश्ता तय होने पर हमें बताएं, आपकी अनुमति से हम इसे यहां दिखाएंगे।",
 report:"रिपोर्ट",block:"ब्लॉक",close:"बंद करें",wa:"शेयर",reported:"धन्यवाद, प्रोफ़ाइल रिपोर्ट होकर छिपा दी गई।",confirmR:"इस प्रोफ़ाइल को रिपोर्ट करके छिपाएं?",blocked:"प्रोफ़ाइल छिपा दी गई।",
 priv:"गोपनीयता",terms:"शर्तें",rights:"राजस्थान में ❤️ से बना",install:"ऐप इंस्टॉल करें",about:"परिचय"}
 };
-/* ---------- data ---------- */
-const PROFILES=[
-{id:1,name:"Priya Sharma",g:"F",age:26,city:"Jaipur",edu:"MBA",job:"HR Manager",comm:"Brahmin",rel:"Hindu",height:"5'4\"",diet:"veg",bio:"Family-oriented, love travelling and cooking."},
-{id:2,name:"Anjali Rathore",g:"F",age:24,city:"Chittorgarh",edu:"B.Ed",job:"Teacher",comm:"Rajput",rel:"Hindu",height:"5'3\"",diet:"veg",bio:"Simple, caring, and love classical music."},
-{id:3,name:"Neha Jain",g:"F",age:27,city:"Udaipur",edu:"CA",job:"Chartered Accountant",comm:"Jain",rel:"Jain",height:"5'5\"",diet:"veg",bio:"Career-minded but value family time."},
-{id:4,name:"Kavita Meena",g:"F",age:25,city:"Kota",edu:"B.Tech",job:"Software Engineer",comm:"Meena",rel:"Hindu",height:"5'4\"",diet:"veg",bio:"Tech lover, enjoy reading and yoga."},
-{id:5,name:"Pooja Gupta",g:"F",age:28,city:"Ajmer",edu:"M.Com",job:"Bank Officer",comm:"Agarwal",rel:"Hindu",height:"5'2\"",diet:"veg",bio:"Positive, independent, love movies."},
-{id:6,name:"Rohit Singh",g:"M",age:29,city:"Jaipur",edu:"MBA",job:"Business Analyst",comm:"Rajput",rel:"Hindu",height:"5'10\"",diet:"nonveg",bio:"Fitness enthusiast, family first."},
-{id:7,name:"Amit Verma",g:"M",age:31,city:"Kota",edu:"B.Tech",job:"Engineer",comm:"Kayastha",rel:"Hindu",height:"5'9\"",diet:"veg",bio:"Easy-going, love road trips."},
-{id:8,name:"Vikram Choudhary",g:"M",age:28,city:"Chittorgarh",edu:"B.Com",job:"Finance Executive",comm:"Jat",rel:"Hindu",height:"5'11\"",diet:"nonveg",bio:"Hard-working and down to earth."},
-{id:9,name:"Rahul Agarwal",g:"M",age:30,city:"Udaipur",edu:"CA",job:"Auditor",comm:"Agarwal",rel:"Hindu",height:"5'8\"",diet:"veg",bio:"Love cricket and spending time with family."},
-{id:10,name:"Sandeep Jain",g:"M",age:27,city:"Ajmer",edu:"MBA",job:"Branch Manager",comm:"Jain",rel:"Jain",height:"5'9\"",diet:"veg",bio:"Simple living, high thinking."}
-];
 /* ---------- state ---------- */
 const ls=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 let lang=ls("lang","en"),theme=ls("theme",matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
 let short=ls("short",[]),sent=ls("sent",[]),blocked=ls("blocked",[]),mine=ls("mine",null),tab="browse";
-let f={g:"",city:"",rel:"",min:"",max:"",q:"",sort:"match"};
+let f={g:"",state:"",city:"",rel:"",min:"",max:"",q:"",sort:"match"},shown=24;
 let deferredPrompt=null;
 const t=k=>T[lang][k]??T.en[k]??k;
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -165,6 +153,7 @@ function score(p){
 function avatar(p,big){
   const c=big?"av big":"av";
   if(p.photo)return `<img class="${c}" src="${p.photo}" alt="">`;
+  if(p.a)return `<img class="${c}" src="${svgAvatar(p)}" alt="" loading="lazy">`;
   return `<div class="${c}" style="background:linear-gradient(135deg,${COL[p.id%5]},${COL[(p.id+2)%5]})">${esc((p.name||"?")[0]).toUpperCase()}</div>`;
 }
 function card(p,own){
@@ -206,21 +195,27 @@ function hero(){
   ${deferredPrompt?`<button class="cta alt" onclick="installApp()">${t("install")}</button>`:""}</div>
   <div class="stats"><div><b>${PROFILES.length}</b>${t("s1")}</div><div><b>${new Set(PROFILES.map(p=>p.city)).size}</b>${t("s2")}</div><div><b>₹0</b>${t("s3")}</div></div></section>`;
 }
+function setF(k,v){f[k]=v;if(k==="state")f.city="";shown=24;render()}
+function more(){shown+=24;render()}
 function browse(){
-  const cities=[...new Set(PROFILES.map(p=>p.city))].sort(),rels=[...new Set(PROFILES.map(p=>p.rel))].sort();
-  let l=PROFILES.filter(p=>!blocked.includes(p.id)&&(!f.g||p.g===f.g)&&(!f.city||p.city===f.city)&&(!f.rel||p.rel===f.rel)&&(!f.min||p.age>=+f.min)&&(!f.max||p.age<=+f.max)&&(!f.q||(p.name+p.job+p.edu+p.comm).toLowerCase().includes(f.q.toLowerCase())));
-  l.sort((a,b)=>f.sort==="age"||!mine?a.age-b.age:(score(b)-score(a)));
+  const rels=[...new Set(PROFILES.map(p=>p.rel))].sort();
+  const cs=CITIES.filter(c=>!f.state||c.state===f.state);
+  const q=f.q.toLowerCase();
+  let l=PROFILES.filter(p=>!blocked.includes(p.id)&&(!f.g||p.g===f.g)&&(!f.state||p.state===f.state)&&(!f.city||p.city===f.city)&&(!f.rel||p.rel===f.rel)&&(!f.min||p.age>=+f.min)&&(!f.max||p.age<=+f.max)&&(!q||(p.name+" "+p.job+" "+p.edu+" "+p.comm+" "+p.city).toLowerCase().includes(q)));
+  l.sort((a,b)=>f.sort==="age"?a.age-b.age||a.o-b.o:(mine?(score(b)-score(a))||a.o-b.o:a.o-b.o));
   const opt=(v,sel,txt)=>`<option value="${esc(v)}" ${sel?"selected":""}>${esc(txt)}</option>`;
   return hero()+`<div class="demo">${t("demo")}</div><div class="filters">
-  <select onchange="f.g=this.value;render()">${opt("",!f.g,t("allG"))}${opt("F",f.g==="F",t("brides"))}${opt("M",f.g==="M",t("grooms"))}</select>
-  <select onchange="f.city=this.value;render()">${opt("",!f.city,t("allC"))}${cities.map(c=>opt(c,f.city===c,c)).join("")}</select>
-  <select onchange="f.rel=this.value;render()">${opt("",!f.rel,t("allR"))}${rels.map(c=>opt(c,f.rel===c,c)).join("")}</select>
-  <select onchange="f.sort=this.value;render()">${opt("match",f.sort==="match",t("sortM"))}${opt("age",f.sort==="age",t("sortA"))}</select>
-  <input type="number" placeholder="${t("minA")}" value="${esc(f.min)}" onchange="f.min=this.value;render()">
-  <input type="number" placeholder="${t("maxA")}" value="${esc(f.max)}" onchange="f.max=this.value;render()">
-  <input class="wide" placeholder="${t("search")}" value="${esc(f.q)}" onchange="f.q=this.value;render()"></div>
+  <select onchange="setF('g',this.value)">${opt("",!f.g,t("allG"))}${opt("F",f.g==="F",t("brides"))}${opt("M",f.g==="M",t("grooms"))}</select>
+  <select onchange="setF('state',this.value)">${opt("",!f.state,t("allS"))}${STATES.map(s=>opt(s,f.state===s,s)).join("")}</select>
+  <select onchange="setF('city',this.value)">${opt("",!f.city,t("allC"))}${cs.map(c=>opt(c.city,f.city===c.city,c.city)).join("")}</select>
+  <select onchange="setF('rel',this.value)">${opt("",!f.rel,t("allR"))}${rels.map(c=>opt(c,f.rel===c,c)).join("")}</select>
+  <select onchange="setF('sort',this.value)">${opt("match",f.sort==="match",t("sortM"))}${opt("age",f.sort==="age",t("sortA"))}</select>
+  <input type="number" placeholder="${t("minA")}" value="${esc(f.min)}" onchange="setF('min',this.value)">
+  <input type="number" placeholder="${t("maxA")}" value="${esc(f.max)}" onchange="setF('max',this.value)">
+  <input class="wide" placeholder="${t("search")}" value="${esc(f.q)}" onchange="setF('q',this.value)"></div>
   <div class="sec"><h2>${t("browse")}</h2><small>${l.length} ${t("found")}</small></div>
-  ${l.length?`<div class="grid">${l.map(p=>card(p)).join("")}</div>`:`<div class="empty"><div class="e">🔍</div>${t("noMatch")}</div>`}
+  ${l.length?`<div class="grid">${l.slice(0,shown).map(p=>card(p)).join("")}</div>`:`<div class="empty"><div class="e">🔍</div>${t("noMatch")}</div>`}
+  ${l.length>shown?`<button class="btn fill" style="width:100%;margin-top:14px;padding:13px" onclick="more()">${t("more")} (${l.length-shown})</button>`:""}
   <div class="box"><h3>🛡️ ${t("safeH")}</h3><ul>${t("safe").map(x=>`<li>${x}</li>`).join("")}</ul></div>
   <div class="box"><h3>💞 ${t("storyH")}</h3><div style="font-size:13px;color:var(--muted)">${t("storyP")}</div></div>
   <footer><a href="privacy.html">${t("priv")}</a><a href="terms.html">${t("terms")}</a><div style="margin-top:8px">${t("rights")}</div></footer>`;
