@@ -1,20 +1,35 @@
 # RishtaMatch
 
-A simple matrimony web app (demo): browse profiles, filter by gender/city/age, shortlist, send interest, and create your own profile.
+A simple, modern matrimony web app (demo). Free to host on GitHub Pages.
 
-- Single file: `index.html` (no install, no backend)
-- Sample profiles are fictional
-- Data is stored in the browser (localStorage)
+## Features
 
-## Put it on GitHub + make it live (free)
+- Modern mobile-first design with bottom navigation and dark mode
+- English / Hindi toggle
+- Browse sample profiles, filter by gender, city, religion and age, sort by best match
+- Match % score (after you create your own profile)
+- Profile detail sheet, shortlist, send interest
+- Create your profile with photo upload (saved only in your browser)
+- WhatsApp share, Report and Block
+- Installable as an app (PWA) and works offline
+- Privacy Policy and Terms pages (starter templates)
 
-1. Go to github.com → **New repository** → name it `rishtamatch` → Create.
-2. Click **Add file → Upload files**, upload `index.html` and `README.md`, then **Commit**.
-3. Go to **Settings → Pages**. Under *Branch*, choose `main` and `/ (root)`, then **Save**.
-4. After about a minute your app is live at `https://<your-username>.github.io/rishtamatch/`
+## Files
 
-## Next ideas
+| File | Purpose |
+|------|---------|
+| `index.html` | The whole app |
+| `manifest.json`, `sw.js`, `icon.svg` | Install-as-app and offline support |
+| `privacy.html`, `terms.html` | Legal pages (get them reviewed by a lawyer before real launch) |
 
-- Real login and a database (Firebase / Supabase)
-- Photo upload
-- Chat after both sides accept interest
+## Notes
+
+- Sample profiles are fictional.
+- Data is stored only in the browser (localStorage). Real login and a shared database are the next step.
+
+## Next steps
+
+1. Real login (phone OTP / Google) and a database (Firebase or Supabase)
+2. Profile verification and photo moderation
+3. Chat after both sides accept interest
+4. Premium plan
