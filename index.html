@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RishtaMatch</title>
+<style>
+:root{--maroon:#8b1e3f;--gold:#d4a017;--bg:#fff8f3;--card:#fff;--text:#2b2024;--muted:#7a6a70}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--maroon);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:20px}
+header small{color:#f3d9a4}
+nav{display:flex;gap:6px;margin-top:10px}
+nav button{flex:1;padding:8px;border:0;border-radius:20px;background:#ffffff22;color:#fff;font-size:14px}
+nav button.on{background:var(--gold);color:#2b2024;font-weight:600}
+main{padding:14px;max-width:900px;margin:auto}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.filters select,.filters input,form input,form select,form textarea{padding:10px;border:1px solid #e3d5d0;border-radius:10px;font-size:14px;width:100%;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{background:var(--card);border-radius:16px;padding:14px;box-shadow:0 2px 8px #0001}
+.avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;font-weight:700}
+.top{display:flex;gap:12px;align-items:center}
+.name{font-weight:700;font-size:17px}
+.meta{color:var(--muted);font-size:13px;margin-top:2px}
+.bio{font-size:13px;margin:10px 0}
+.row{display:flex;gap:8px}
+.btn{flex:1;padding:9px;border-radius:10px;border:1px solid var(--maroon);background:#fff;color:var(--maroon);font-weight:600;font-size:13px}
+.btn.fill{background:var(--maroon);color:#fff}
+.btn.done{background:#e6f4ea;border-color:#2e7d32;color:#2e7d32}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+form{display:grid;gap:10px;background:#fff;padding:14px;border-radius:16px}
+.badge{display:inline-block;background:#fdeccc;color:#7a5200;border-radius:8px;padding:2px 8px;font-size:11px;margin-top:6px}
+.note{font-size:12px;color:var(--muted);text-align:center;margin:18px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>💍 RishtaMatch <small>· Apna Jeevansathi</small></h1>
+  <nav>
+    <button data-t="browse" class="on">Browse</button>
+    <button data-t="short">Shortlist</button>
+    <button data-t="sent">Interests</button>
+    <button data-t="mine">My Profile</button>
+  </nav>
+</header>
+<main id="app"></main>
+
+<script>
+const PROFILES=[
+{id:1,name:"Priya Sharma",g:"F",age:26,city:"Jaipur",edu:"MBA",job:"HR Manager",comm:"Brahmin",bio:"Family-oriented, love travelling and cooking."},
+{id:2,name:"Anjali Rathore",g:"F",age:24,city:"Chittorgarh",edu:"B.Ed",job:"Teacher",comm:"Rajput",bio:"Simple, caring, and love classical music."},
+{id:3,name:"Neha Jain",g:"F",age:27,city:"Udaipur",edu:"CA",job:"Chartered Accountant",comm:"Jain",bio:"Career-minded but value family time."},
+{id:4,name:"Kavita Meena",g:"F",age:25,city:"Kota",edu:"B.Tech",job:"Software Engineer",comm:"Meena",bio:"Tech lover, enjoy reading and yoga."},
+{id:5,name:"Pooja Gupta",g:"F",age:28,city:"Ajmer",edu:"M.Com",job:"Bank Officer",comm:"Agarwal",bio:"Positive, independent, love movies."},
+{id:6,name:"Rohit Singh",g:"M",age:29,city:"Jaipur",edu:"MBA",job:"Business Analyst",comm:"Rajput",bio:"Fitness enthusiast, family first."},
+{id:7,name:"Amit Verma",g:"M",age:31,city:"Kota",edu:"B.Tech",job:"Engineer",comm:"Kayastha",bio:"Easy-going, love road trips."},
+{id:8,name:"Vikram Choudhary",g:"M",age:28,city:"Chittorgarh",edu:"B.Com",job:"Finance Executive",comm:"Jat",bio:"Hard-working and down to earth."},
+{id:9,name:"Rahul Agarwal",g:"M",age:30,city:"Udaipur",edu:"CA",job:"Auditor",comm:"Agarwal",bio:"Love cricket and spending time with family."},
+{id:10,name:"Sandeep Jain",g:"M",age:27,city:"Ajmer",edu:"MBA",job:"Branch Manager",comm:"Jain",bio:"Simple living, high thinking."}
+];
+const ls=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let short=ls("short",[]),sent=ls("sent",[]),mine=ls("mine",null),tab="browse";
+let f={g:"",city:"",min:"",max:"",q:""};
+const all=()=>mine?[...PROFILES]:PROFILES;
+const colors=["#8b1e3f","#2e6f95","#6a994e","#bc6c25","#6d597a"];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function card(p){
+  const s=short.includes(p.id),i=sent.includes(p.id);
+  return `<div class="card"><div class="top"><div class="avatar" style="background:${colors[p.id%5]}">${esc(p.name[0])}</div>
+  <div><div class="name">${esc(p.name)}</div><div class="meta">${p.age} yrs · ${esc(p.city)}</div><span class="badge">${esc(p.comm)}</span></div></div>
+  <div class="bio"><b>${esc(p.job)}</b> · ${esc(p.edu)}<br>${esc(p.bio)}</div>
+  <div class="row"><button class="btn ${s?'done':''}" onclick="tog(${p.id})">${s?'✓ Shortlisted':'☆ Shortlist'}</button>
+  <button class="btn ${i?'done':'fill'}" onclick="intr(${p.id})">${i?'✓ Interest Sent':'Send Interest'}</button></div></div>`;
+}
+function browse(){
+  const cities=[...new Set(PROFILES.map(p=>p.city))].sort();
+  let list=PROFILES.filter(p=>(!f.g||p.g===f.g)&&(!f.city||p.city===f.city)&&(!f.min||p.age>=+f.min)&&(!f.max||p.age<=+f.max)&&(!f.q||(p.name+p.job+p.comm+p.edu).toLowerCase().includes(f.q.toLowerCase())));
+  return `<div class="filters">
+  <select onchange="f.g=this.value;render()"><option value="">Bride &amp; Groom</option><option value="F" ${f.g=="F"?"selected":""}>Brides</option><option value="M" ${f.g=="M"?"selected":""}>Grooms</option></select>
+  <select onchange="f.city=this.value;render()"><option value="">All Cities</option>${cities.map(c=>`<option ${f.city==c?"selected":""}>${c}</option>`).join("")}</select>
+  <input type="number" placeholder="Min age" value="${f.min}" onchange="f.min=this.value;render()">
+  <input type="number" placeholder="Max age" value="${f.max}" onchange="f.max=this.value;render()">
+  <input style="grid-column:1/3" placeholder="Search name, job, community…" value="${esc(f.q)}" onchange="f.q=this.value;render()"></div>
+  ${list.length?`<div class="grid">${list.map(card).join("")}</div>`:`<div class="empty">No matches. Try changing filters.</div>`}`;
+}
+function listOf(ids,msg){const l=PROFILES.filter(p=>ids.includes(p.id));return l.length?`<div class="grid">${l.map(card).join("")}</div>`:`<div class="empty">${msg}</div>`}
+function mineView(){
+  const m=mine||{};
+  return `<form onsubmit="saveMine(event)"><b>Create / Edit your profile</b>
+  <input name="name" placeholder="Full name" value="${esc(m.name||"")}" required>
+  <select name="g"><option value="M" ${m.g=="M"?"selected":""}>Male</option><option value="F" ${m.g=="F"?"selected":""}>Female</option></select>
+  <input name="age" type="number" min="18" max="70" placeholder="Age" value="${m.age||""}" required>
+  <input name="city" placeholder="City" value="${esc(m.city||"")}" required>
+  <input name="edu" placeholder="Education" value="${esc(m.edu||"")}">
+  <input name="job" placeholder="Profession" value="${esc(m.job||"")}">
+  <input name="comm" placeholder="Community" value="${esc(m.comm||"")}">
+  <textarea name="bio" rows="3" placeholder="About me">${esc(m.bio||"")}</textarea>
+  <button class="btn fill" style="padding:12px">Save Profile</button></form>
+  ${mine?`<div class="grid" style="margin-top:14px">${card({...mine,id:0})}</div>`:""}
+  <div class="note">Your profile is saved only on this device (browser storage).</div>`;
+}
+function render(){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+  const a=document.getElementById("app");
+  a.innerHTML=tab=="browse"?browse():tab=="short"?listOf(short,"No shortlisted profiles yet."):tab=="sent"?listOf(sent,"You haven't sent any interest yet."):mineView();
+}
+function tog(id){short=short.includes(id)?short.filter(x=>x!==id):[...short,id];save("short",short);render()}
+function intr(id){if(!sent.includes(id)){sent.push(id);save("sent",sent)}render()}
+function saveMine(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.age=+d.age;mine=d;save("mine",mine);render()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
+render();
+</script>
+</body>
+</html>
