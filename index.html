@@ -113,7 +113,7 @@ const T={
 en:{h:"Find your life partner",p:"A simple, safe and free place to find a match. Create your profile in a minute.",cta:"Create free profile",share:"Share on WhatsApp",s1:"Sample profiles",s2:"Cities",s3:"Free",
 browse:"Browse",short:"Shortlist",sent:"Interests",mine:"My Profile",
 allG:"Brides & Grooms",brides:"Brides",grooms:"Grooms",allC:"All Cities",allR:"All Religions",minA:"Min age",maxA:"Max age",search:"Search name, job, education…",
-sortM:"Sort: Recommended",allS:"All States",sample:"Sample",sampleNote:"This is a sample profile. Interest is not sent to a real person.",more:"Load more",sortA:"Sort: Age",found:"profiles",noMatch:"No matches. Try changing filters.",noShort:"No shortlisted profiles yet.",noSent:"You haven't sent any interest yet.",
+sortM:"Sort: Recommended",allS:"All States",st1:"Free",st1s:"No fees",st2:"All India",st2s:"Every state",st3:"EN + हिं",st3s:"Two languages",sample:"Sample",sampleNote:"This is a sample profile. Interest is not sent to a real person.",more:"Load more",sortA:"Sort: Age",found:"profiles",noMatch:"No matches. Try changing filters.",noShort:"No shortlisted profiles yet.",noSent:"You haven't sent any interest yet.",
 sl:"☆ Shortlist",sld:"✓ Shortlisted",si:"Send Interest",sid:"✓ Interest Sent",match:"match",
 createH:"Create / Edit your profile",save:"Save Profile",name:"Full name",gender:"Gender",male:"Male",female:"Female",age:"Age",city:"City",edu:"Education",job:"Profession",comm:"Community / Caste",rel:"Religion",height:"Height",diet:"Diet",veg:"Vegetarian",nonveg:"Non-vegetarian",bio:"About me",photo:"Profile photo",
 savedNote:"Your profile is saved only on this device (browser storage). Real accounts and a database are coming soon.",
@@ -125,7 +125,7 @@ priv:"Privacy",terms:"Terms",rights:"Made with ❤️ in Rajasthan",install:"Ins
 hi:{h:"अपना जीवनसाथी ढूंढें",p:"रिश्ता ढूंढने की आसान, सुरक्षित और मुफ़्त जगह। एक मिनट में अपनी प्रोफ़ाइल बनाएं।",cta:"फ्री प्रोफ़ाइल बनाएं",share:"WhatsApp पर शेयर करें",s1:"सैंपल प्रोफ़ाइल",s2:"शहर",s3:"मुफ़्त",
 browse:"खोजें",short:"शॉर्टलिस्ट",sent:"इंटरेस्ट",mine:"मेरी प्रोफ़ाइल",
 allG:"दुल्हन और दूल्हा",brides:"दुल्हन",grooms:"दूल्हा",allC:"सभी शहर",allR:"सभी धर्म",minA:"न्यूनतम उम्र",maxA:"अधिकतम उम्र",search:"नाम, काम, शिक्षा खोजें…",
-sortM:"क्रम: सुझाए गए",allS:"सभी राज्य",sample:"सैंपल",sampleNote:"यह सैंपल प्रोफ़ाइल है। इंटरेस्ट किसी असली व्यक्ति को नहीं जाता।",more:"और दिखाएं",sortA:"क्रम: उम्र",found:"प्रोफ़ाइल",noMatch:"कोई मैच नहीं मिला। फ़िल्टर बदलकर देखें।",noShort:"अभी कोई शॉर्टलिस्ट नहीं है।",noSent:"आपने अभी तक कोई इंटरेस्ट नहीं भेजा।",
+sortM:"क्रम: सुझाए गए",allS:"सभी राज्य",st1:"मुफ़्त",st1s:"कोई फ़ीस नहीं",st2:"पूरा भारत",st2s:"हर राज्य",st3:"EN + हिं",st3s:"दो भाषाएं",sample:"सैंपल",sampleNote:"यह सैंपल प्रोफ़ाइल है। इंटरेस्ट किसी असली व्यक्ति को नहीं जाता।",more:"और दिखाएं",sortA:"क्रम: उम्र",found:"प्रोफ़ाइल",noMatch:"कोई मैच नहीं मिला। फ़िल्टर बदलकर देखें।",noShort:"अभी कोई शॉर्टलिस्ट नहीं है।",noSent:"आपने अभी तक कोई इंटरेस्ट नहीं भेजा।",
 sl:"☆ शॉर्टलिस्ट",sld:"✓ शॉर्टलिस्टेड",si:"इंटरेस्ट भेजें",sid:"✓ इंटरेस्ट भेजा",match:"मैच",
 createH:"अपनी प्रोफ़ाइल बनाएं / बदलें",save:"प्रोफ़ाइल सेव करें",name:"पूरा नाम",gender:"लिंग",male:"पुरुष",female:"महिला",age:"उम्र",city:"शहर",edu:"शिक्षा",job:"काम / व्यवसाय",comm:"समाज / जाति",rel:"धर्म",height:"कद",diet:"खान-पान",veg:"शाकाहारी",nonveg:"मांसाहारी",bio:"मेरे बारे में",photo:"प्रोफ़ाइल फोटो",
 savedNote:"आपकी प्रोफ़ाइल सिर्फ़ इसी डिवाइस (ब्राउज़र) में सेव है। असली अकाउंट और डेटाबेस जल्द आ रहे हैं।",
@@ -202,7 +202,7 @@ function hero(){
   <div class="row"><button class="cta" onclick="go('mine')">${t("cta")}</button>
   <a class="cta alt" style="text-decoration:none" href="https://wa.me/?text=${msg}" target="_blank" rel="noopener">${t("share")}</a>
   ${deferredPrompt?`<button class="cta alt" onclick="installApp()">${t("install")}</button>`:""}</div>
-  <div class="stats"><div><b>${PROFILES.length}</b>${t("s1")}</div><div><b>${new Set(PROFILES.map(p=>p.city)).size}</b>${t("s2")}</div><div><b>₹0</b>${t("s3")}</div></div></section>`;
+  <div class="stats"><div><b>${t("st1")}</b>${t("st1s")}</div><div><b>${t("st2")}</b>${t("st2s")}</div><div><b>${t("st3")}</b>${t("st3s")}</div></div></section>`;
 }
 function setF(k,v){f[k]=v;if(k==="state")f.city="";shown=24;render()}
 function more(){shown+=24;render()}
@@ -222,9 +222,9 @@ function browse(){
   <input type="number" placeholder="${t("minA")}" value="${esc(f.min)}" onchange="setF('min',this.value)">
   <input type="number" placeholder="${t("maxA")}" value="${esc(f.max)}" onchange="setF('max',this.value)">
   <input class="wide" placeholder="${t("search")}" value="${esc(f.q)}" onchange="setF('q',this.value)"></div>
-  <div class="sec"><h2>${t("browse")}</h2><small>${l.length} ${t("found")}</small></div>
+  <div class="sec"><h2>${t("browse")}</h2><small></small></div>
   ${l.length?`<div class="grid">${l.slice(0,shown).map(p=>card(p)).join("")}</div>`:`<div class="empty"><div class="e">🔍</div>${t("noMatch")}</div>`}
-  ${l.length>shown?`<button class="btn fill" style="width:100%;margin-top:14px;padding:13px" onclick="more()">${t("more")} (${l.length-shown})</button>`:""}
+  ${l.length>shown?`<button class="btn fill" style="width:100%;margin-top:14px;padding:13px" onclick="more()">${t("more")}</button>`:""}
   <div class="box"><h3>🛡️ ${t("safeH")}</h3><ul>${t("safe").map(x=>`<li>${x}</li>`).join("")}</ul></div>
   <div class="box"><h3>💞 ${t("storyH")}</h3><div style="font-size:13px;color:var(--muted)">${t("storyP")}</div></div>
   <footer><a href="privacy.html">${t("priv")}</a><a href="terms.html">${t("terms")}</a><div style="margin-top:8px">${t("rights")}</div></footer>`;
