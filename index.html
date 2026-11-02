@@ -106,6 +106,7 @@ nav.bottom i{position:absolute;top:0;right:26%;background:var(--maroon);color:#f
 <nav class="bottom" id="nav"></nav>
 <div id="modal"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="profiles.js"></script>
 <script>
 /* ---------- translations ---------- */
@@ -113,10 +114,10 @@ const T={
 en:{h:"Find your life partner",p:"A simple, safe and free place to find a match. Create your profile in a minute.",cta:"Create free profile",share:"Share on WhatsApp",s1:"Sample profiles",s2:"Cities",s3:"Free",
 browse:"Browse",short:"Shortlist",sent:"Interests",mine:"My Profile",
 allG:"Brides & Grooms",brides:"Brides",grooms:"Grooms",allC:"All Cities",allR:"All Religions",minA:"Min age",maxA:"Max age",search:"Search name, job, education…",
-sortM:"Sort: Recommended",allS:"All States",needProfile:"Please create your profile first, then you can send interests.",payH:"Unlock unlimited interests",payP:"You have used your 2 free interests. Get unlimited interests with a one-time plan.",payBtn:"Pay ₹499 (Demo)",payNote:"Demo mode: no real payment is taken.",later:"Maybe later",freeUsed:"free used",unlocked:"✓ Unlocked: unlimited interests",pb1:"Unlimited interests",pb2:"Priority in search",pb3:"One-time ₹499",st1:"Free",st1s:"No fees",st2:"All India",st2s:"Every state",st3:"EN + हिं",st3s:"Two languages",sample:"Sample",sampleNote:"This is a sample profile. Interest is not sent to a real person.",more:"Load more",sortA:"Sort: Age",found:"profiles",noMatch:"No matches. Try changing filters.",noShort:"No shortlisted profiles yet.",noSent:"You haven't sent any interest yet.",
+sortM:"Sort: Recommended",allS:"All States",loginH:"Log in",signupH:"Create your account",email:"Email",password:"Password (min 6 characters)",login:"Log in",signup:"Sign up",noAcc:"New here? Create an account",haveAcc:"Already have an account? Log in",logout:"Log out",checkEmail:"Account created. Please check your email and click the confirmation link, then log in.",loginNeeded:"Please log in first.",cloudOff:"Could not connect to the server. Please check your internet and refresh.",authNote:"Your profile is saved securely in your account. Only logged-in members can see real profiles.",member:"Member",loginSee:"Log in to see real members and send interests.",needProfile:"Please create your profile first, then you can send interests.",payH:"Unlock unlimited interests",payP:"You have used your 2 free interests. Get unlimited interests with a one-time plan.",payBtn:"Pay ₹499 (Demo)",payNote:"Demo mode: no real payment is taken.",later:"Maybe later",freeUsed:"free used",unlocked:"✓ Unlocked: unlimited interests",pb1:"Unlimited interests",pb2:"Priority in search",pb3:"One-time ₹499",st1:"Free",st1s:"No fees",st2:"All India",st2s:"Every state",st3:"EN + हिं",st3s:"Two languages",sample:"Sample",sampleNote:"This is a sample profile. Interest is not sent to a real person.",more:"Load more",sortA:"Sort: Age",found:"profiles",noMatch:"No matches. Try changing filters.",noShort:"No shortlisted profiles yet.",noSent:"You haven't sent any interest yet.",
 sl:"☆ Shortlist",sld:"✓ Shortlisted",si:"Send Interest",sid:"✓ Interest Sent",match:"match",
 createH:"Create / Edit your profile",save:"Save Profile",name:"Full name",gender:"Gender",male:"Male",female:"Female",age:"Age",city:"City",edu:"Education",job:"Profession",comm:"Community / Caste",rel:"Religion",height:"Height",diet:"Diet",veg:"Vegetarian",nonveg:"Non-vegetarian",bio:"About me",photo:"Profile photo",
-savedNote:"Your profile is saved only on this device (browser storage). Real accounts and a database are coming soon.",
+savedNote:"Your profile is saved securely in your account.",
 demo:"Sample profiles · demo version",
 safeH:"Stay safe",safe:["Never send money to anyone you meet online.","Meet first in a public place with family.","Verify job, family and documents before deciding.","Use Report if something looks wrong."],
 storyH:"Success stories",storyP:"Your story could be first here. After you find your match, tell us and we will feature it (with your permission).",
@@ -125,59 +126,71 @@ priv:"Privacy",terms:"Terms",rights:"Made with ❤️ in Rajasthan",install:"Ins
 hi:{h:"अपना जीवनसाथी ढूंढें",p:"रिश्ता ढूंढने की आसान, सुरक्षित और मुफ़्त जगह। एक मिनट में अपनी प्रोफ़ाइल बनाएं।",cta:"फ्री प्रोफ़ाइल बनाएं",share:"WhatsApp पर शेयर करें",s1:"सैंपल प्रोफ़ाइल",s2:"शहर",s3:"मुफ़्त",
 browse:"खोजें",short:"शॉर्टलिस्ट",sent:"इंटरेस्ट",mine:"मेरी प्रोफ़ाइल",
 allG:"दुल्हन और दूल्हा",brides:"दुल्हन",grooms:"दूल्हा",allC:"सभी शहर",allR:"सभी धर्म",minA:"न्यूनतम उम्र",maxA:"अधिकतम उम्र",search:"नाम, काम, शिक्षा खोजें…",
-sortM:"क्रम: सुझाए गए",allS:"सभी राज्य",needProfile:"पहले अपनी प्रोफ़ाइल बनाएं, फिर इंटरेस्ट भेज सकते हैं।",payH:"अनलिमिटेड इंटरेस्ट अनलॉक करें",payP:"आपके 2 फ्री इंटरेस्ट पूरे हो गए। एक बार का प्लान लेकर अनलिमिटेड इंटरेस्ट भेजें।",payBtn:"₹499 भरें (डेमो)",payNote:"डेमो मोड: कोई असली पेमेंट नहीं होगा।",later:"बाद में",freeUsed:"फ्री इस्तेमाल",unlocked:"✓ अनलॉक: अनलिमिटेड इंटरेस्ट",pb1:"अनलिमिटेड इंटरेस्ट",pb2:"सर्च में प्राथमिकता",pb3:"एक बार ₹499",st1:"मुफ़्त",st1s:"कोई फ़ीस नहीं",st2:"पूरा भारत",st2s:"हर राज्य",st3:"EN + हिं",st3s:"दो भाषाएं",sample:"सैंपल",sampleNote:"यह सैंपल प्रोफ़ाइल है। इंटरेस्ट किसी असली व्यक्ति को नहीं जाता।",more:"और दिखाएं",sortA:"क्रम: उम्र",found:"प्रोफ़ाइल",noMatch:"कोई मैच नहीं मिला। फ़िल्टर बदलकर देखें।",noShort:"अभी कोई शॉर्टलिस्ट नहीं है।",noSent:"आपने अभी तक कोई इंटरेस्ट नहीं भेजा।",
+sortM:"क्रम: सुझाए गए",allS:"सभी राज्य",loginH:"लॉगिन करें",signupH:"अपना अकाउंट बनाएं",email:"ईमेल",password:"पासवर्ड (कम से कम 6 अक्षर)",login:"लॉगिन",signup:"साइन अप",noAcc:"नए हैं? अकाउंट बनाएं",haveAcc:"पहले से अकाउंट है? लॉगिन करें",logout:"लॉग आउट",checkEmail:"अकाउंट बन गया। कृपया अपना ईमेल देखें, कन्फ़र्मेशन लिंक दबाएं, फिर लॉगिन करें।",loginNeeded:"पहले लॉगिन करें।",cloudOff:"सर्वर से कनेक्ट नहीं हो पाया। इंटरनेट जांचें और पेज रिफ्रेश करें।",authNote:"आपकी प्रोफ़ाइल आपके अकाउंट में सुरक्षित सेव होती है। असली प्रोफ़ाइल सिर्फ़ लॉगिन किए सदस्य देख सकते हैं।",member:"सदस्य",loginSee:"असली सदस्य देखने और इंटरेस्ट भेजने के लिए लॉगिन करें।",needProfile:"पहले अपनी प्रोफ़ाइल बनाएं, फिर इंटरेस्ट भेज सकते हैं।",payH:"अनलिमिटेड इंटरेस्ट अनलॉक करें",payP:"आपके 2 फ्री इंटरेस्ट पूरे हो गए। एक बार का प्लान लेकर अनलिमिटेड इंटरेस्ट भेजें।",payBtn:"₹499 भरें (डेमो)",payNote:"डेमो मोड: कोई असली पेमेंट नहीं होगा।",later:"बाद में",freeUsed:"फ्री इस्तेमाल",unlocked:"✓ अनलॉक: अनलिमिटेड इंटरेस्ट",pb1:"अनलिमिटेड इंटरेस्ट",pb2:"सर्च में प्राथमिकता",pb3:"एक बार ₹499",st1:"मुफ़्त",st1s:"कोई फ़ीस नहीं",st2:"पूरा भारत",st2s:"हर राज्य",st3:"EN + हिं",st3s:"दो भाषाएं",sample:"सैंपल",sampleNote:"यह सैंपल प्रोफ़ाइल है। इंटरेस्ट किसी असली व्यक्ति को नहीं जाता।",more:"और दिखाएं",sortA:"क्रम: उम्र",found:"प्रोफ़ाइल",noMatch:"कोई मैच नहीं मिला। फ़िल्टर बदलकर देखें।",noShort:"अभी कोई शॉर्टलिस्ट नहीं है।",noSent:"आपने अभी तक कोई इंटरेस्ट नहीं भेजा।",
 sl:"☆ शॉर्टलिस्ट",sld:"✓ शॉर्टलिस्टेड",si:"इंटरेस्ट भेजें",sid:"✓ इंटरेस्ट भेजा",match:"मैच",
 createH:"अपनी प्रोफ़ाइल बनाएं / बदलें",save:"प्रोफ़ाइल सेव करें",name:"पूरा नाम",gender:"लिंग",male:"पुरुष",female:"महिला",age:"उम्र",city:"शहर",edu:"शिक्षा",job:"काम / व्यवसाय",comm:"समाज / जाति",rel:"धर्म",height:"कद",diet:"खान-पान",veg:"शाकाहारी",nonveg:"मांसाहारी",bio:"मेरे बारे में",photo:"प्रोफ़ाइल फोटो",
-savedNote:"आपकी प्रोफ़ाइल सिर्फ़ इसी डिवाइस (ब्राउज़र) में सेव है। असली अकाउंट और डेटाबेस जल्द आ रहे हैं।",
+savedNote:"आपकी प्रोफ़ाइल आपके अकाउंट में सुरक्षित सेव है।",
 demo:"सैंपल प्रोफ़ाइल · डेमो वर्ज़न",
 safeH:"सुरक्षित रहें",safe:["ऑनलाइन मिले किसी को कभी पैसे न भेजें।","पहले परिवार के साथ सार्वजनिक जगह पर मिलें।","फ़ैसले से पहले नौकरी, परिवार और दस्तावेज़ जांचें।","कुछ गलत लगे तो रिपोर्ट करें।"],
 storyH:"सफलता की कहानियां",storyP:"पहली कहानी आपकी हो सकती है। रिश्ता तय होने पर हमें बताएं, आपकी अनुमति से हम इसे यहां दिखाएंगे।",
 report:"रिपोर्ट",block:"ब्लॉक",close:"बंद करें",wa:"शेयर",reported:"धन्यवाद, प्रोफ़ाइल रिपोर्ट होकर छिपा दी गई।",confirmR:"इस प्रोफ़ाइल को रिपोर्ट करके छिपाएं?",blocked:"प्रोफ़ाइल छिपा दी गई।",
 priv:"गोपनीयता",terms:"शर्तें",rights:"राजस्थान में ❤️ से बना",install:"ऐप इंस्टॉल करें",about:"परिचय"}
 };
+/* ---------- cloud (Supabase) ---------- */
+const SB_URL="https://ptbiqrobmjaievaltnec.supabase.co",SB_KEY="sb_publishable_XWi4uW_EB0fGh7xL3etllQ_SvibinBj";
+let sb=null;try{if(window.supabase)sb=window.supabase.createClient(SB_URL,SB_KEY)}catch(e){}
+let user=null,REAL=[],authMode="login",authMsg="",busy=false,pendingPhoto=null;
 /* ---------- state ---------- */
 const ls=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const norm=a=>(Array.isArray(a)?a:[]).map(String);
+const isReal=id=>String(id).length>12;
 let lang=ls("lang","en"),theme=ls("theme",matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
 const FREE=2,PRICE=499;
-let paid=ls("paid",false);
-let short=ls("short",[]),sent=ls("sent",[]),blocked=ls("blocked",[]),mine=ls("mine",null),tab="browse";
+let paid=false;
+let short=norm(ls("short",[])),sent=norm(ls("sent",[])),blocked=norm(ls("blocked",[])),mine=null,tab="browse";
+const persist=(k,a)=>sv(k,a.filter(x=>!isReal(x)));
 let f={g:"",state:"",city:"",rel:"",min:"",max:"",q:"",sort:"match"},shown=24;
 let deferredPrompt=null;
 const t=k=>T[lang][k]??T.en[k]??k;
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const COL=["#8b1e3f","#2e6f95","#6a994e","#bc6c25","#6d597a"];
 const dietL=d=>d==="veg"?t("veg"):d==="nonveg"?t("nonveg"):"";
+const fromRow=r=>({id:r.id,name:r.name,g:r.gender,age:r.age,city:r.city,state:r.state,edu:r.edu||"",job:r.job||"",comm:r.comm||"",rel:r.rel||"",height:r.height||"",diet:r.diet,bio:r.bio||"",photo:r.photo_url||null,real:true});
+const allP=()=>REAL.concat(PROFILES);
+const findP=id=>allP().find(p=>String(p.id)===String(id));
 /* ---------- match score ---------- */
 function score(p){
   if(!mine)return null;
   let s=50;
-  if(mine.city&&p.city.toLowerCase()===mine.city.trim().toLowerCase())s+=20;
+  if(mine.city&&p.city&&p.city.toLowerCase()===mine.city.trim().toLowerCase())s+=20;
   const d=Math.abs((+mine.age||0)-p.age);s+=d<=3?15:d<=6?8:0;
   if(mine.rel&&p.rel&&mine.rel.trim().toLowerCase()===p.rel.toLowerCase())s+=10;
   if(mine.comm&&p.comm&&mine.comm.trim().toLowerCase()===p.comm.toLowerCase())s+=5;
-  if(mine.g&&mine.g!==p.g)s+=0;else if(mine.g)s-=25;
+  if(mine.g&&mine.g===p.g)s-=25;
   return Math.max(10,Math.min(99,s));
 }
 /* ---------- components ---------- */
 function avatar(p,big){
   const c=big?"av big":"av";
-  if(p.photo)return `<img class="${c}" src="${p.photo}" alt="">`;
+  if(p.photo)return `<img class="${c}" src="${esc(p.photo)}" alt="">`;
   if(p.a)return `<img class="${c}" src="${svgAvatar(p)}" alt="" loading="lazy">`;
-  return `<div class="${c}" style="background:linear-gradient(135deg,${COL[p.id%5]},${COL[(p.id+2)%5]})">${esc((p.name||"?")[0]).toUpperCase()}</div>`;
+  const n=typeof p.id==="number"?p.id:[...String(p.id)].reduce((a,ch)=>a+ch.charCodeAt(0),0);
+  return `<div class="${c}" style="background:linear-gradient(135deg,${COL[n%5]},${COL[(n+2)%5]})">${esc((p.name||"?")[0]).toUpperCase()}</div>`;
 }
+const tag=p=>p.real?`<span class="badge" style="background:#e6f4ea;color:#2e7d32">${t("member")}</span>`:`<span class="badge" style="background:#e9e9ee;color:#555">${t("sample")}</span>`;
 function card(p,own){
-  const s=short.includes(p.id),i=sent.includes(p.id),m=own?null:score(p);
+  const id=String(p.id),s=short.includes(id),i=sent.includes(id),m=own?null:score(p);
   return `<div class="card">${m?`<div class="match">${m}% ${t("match")}</div>`:""}
-  <div class="top" ${own?"":`onclick="openP(${p.id})"`}>${avatar(p)}<div><div class="name">${esc(p.name)}</div>
+  <div class="top" ${own?"":`onclick="openP('${id}')"`}>${avatar(p)}<div><div class="name">${esc(p.name)}</div>
   <div class="meta">${esc(p.age)} yrs · ${esc(p.city)}${p.height?" · "+esc(p.height):""}</div>
-  <span class="badge">${esc(p.comm||p.rel||"")}</span>${own?"":`<span class="badge" style="background:#e9e9ee;color:#555">${t("sample")}</span>`}${p.diet?`<span class="badge">${dietL(p.diet)}</span>`:""}</div></div>
+  <span class="badge">${esc(p.comm||p.rel||"")}</span>${own?"":tag(p)}${p.diet?`<span class="badge">${dietL(p.diet)}</span>`:""}</div></div>
   <div class="bio"><b>${esc(p.job)}</b>${p.edu?" · "+esc(p.edu):""}<br>${esc(p.bio)}</div>
-  ${own?"":`<div class="row"><button class="btn ${s?"done":""}" onclick="tog(${p.id})">${s?t("sld"):t("sl")}</button>
-  <button class="btn ${i?"done":"fill"}" onclick="intr(${p.id})">${i?t("sid"):t("si")}</button></div>`}</div>`;
+  ${own?"":`<div class="row"><button class="btn ${s?"done":""}" onclick="tog('${id}')">${s?t("sld"):t("sl")}</button>
+  <button class="btn ${i?"done":"fill"}" onclick="intr('${id}')">${i?t("sid"):t("si")}</button></div>`}</div>`;
 }
 function openP(id){
-  const p=PROFILES.find(x=>x.id===id);if(!p)return;
+  id=String(id);const p=findP(id);if(!p)return;
   const s=short.includes(id),i=sent.includes(id),m=score(p);
   const msg=encodeURIComponent(`RishtaMatch par ye profile dekhein: ${p.name}, ${p.age} yrs, ${p.city}\n${location.href.split("#")[0]}`);
   document.getElementById("modal").innerHTML=`<div class="modal" onclick="if(event.target===this)closeM()"><div class="sheet">
@@ -187,16 +200,23 @@ function openP(id){
   <div><small>${t("rel")}</small>${esc(p.rel)}</div><div><small>${t("comm")}</small>${esc(p.comm)}</div>
   <div><small>${t("height")}</small>${esc(p.height)}</div><div><small>${t("diet")}</small>${dietL(p.diet)}</div></div>
   <p style="font-size:14px">${esc(p.bio)}</p>
-  <div class="demo" style="display:block;border-radius:12px;font-size:12px">${t("sampleNote")}</div>
-  <div class="row" style="margin-bottom:8px"><button class="btn ${s?"done":""}" onclick="tog(${id});openP(${id})">${s?t("sld"):t("sl")}</button>
-  <button class="btn ${i?"done":"fill"}" onclick="intr(${id})">${i?t("sid"):t("si")}</button></div>
-  <div class="row"><a class="btn wa" style="text-align:center;text-decoration:none;padding:10px" href="https://wa.me/?text=${msg}" target="_blank" rel="noopener">WhatsApp ${t("wa")}</a>
-  <button class="btn red" onclick="rep(${id})">⚠ ${t("report")}</button><button class="btn" onclick="blk(${id})">🚫 ${t("block")}</button></div>
+  ${p.real?"":`<div class="demo" style="display:block;border-radius:12px;font-size:12px">${t("sampleNote")}</div>`}
+  <div class="row" style="margin-bottom:8px"><button class="btn ${s?"done":""}" onclick="tog('${id}');openP('${id}')">${s?t("sld"):t("sl")}</button>
+  <button class="btn ${i?"done":"fill"}" onclick="intr('${id}')">${i?t("sid"):t("si")}</button></div>
+  <div class="row">${p.real?"":`<a class="btn wa" style="text-align:center;text-decoration:none;padding:10px" href="https://wa.me/?text=${msg}" target="_blank" rel="noopener">WhatsApp ${t("wa")}</a>`}
+  <button class="btn red" onclick="rep('${id}')">⚠ ${t("report")}</button><button class="btn" onclick="blk('${id}')">🚫 ${t("block")}</button></div>
   <button class="btn" style="width:100%;margin-top:10px" onclick="closeM()">${t("close")}</button></div></div>`;
 }
 function closeM(){document.getElementById("modal").innerHTML=""}
-function rep(id){if(confirm(t("confirmR"))){blocked.push(id);sv("blocked",blocked);closeM();render();alert(t("reported"))}}
-function blk(id){blocked.push(id);sv("blocked",blocked);closeM();render()}
+async function blockId(id,report){
+  id=String(id);if(!blocked.includes(id))blocked.push(id);persist("blocked",blocked);
+  if(isReal(id)&&sb&&user){
+    if(report)await sb.from("reports").insert({reported:id,reason:"reported from app"});
+    await sb.from("blocks").upsert({user_id:user.id,blocked_id:id});
+  }
+}
+function rep(id){if(confirm(t("confirmR"))){closeM();blockId(id,true);render();alert(t("reported"))}}
+function blk(id){closeM();blockId(id,false);render()}
 /* ---------- views ---------- */
 function hero(){
   const msg=encodeURIComponent("RishtaMatch: apna jeevansathi dhundhein, free aur safe. "+location.href.split("#")[0]);
@@ -209,13 +229,20 @@ function hero(){
 function setF(k,v){f[k]=v;if(k==="state")f.city="";shown=24;render()}
 function more(){shown+=24;render()}
 function browse(){
-  const rels=[...new Set(PROFILES.map(p=>p.rel))].sort();
+  const all=allP();
+  const rels=[...new Set(all.map(p=>p.rel).filter(Boolean))].sort();
   const cs=CITIES.filter(c=>!f.state||c.state===f.state);
   const q=f.q.toLowerCase();
-  let l=PROFILES.filter(p=>!blocked.includes(p.id)&&(!f.g||p.g===f.g)&&(!f.state||p.state===f.state)&&(!f.city||p.city===f.city)&&(!f.rel||p.rel===f.rel)&&(!f.min||p.age>=+f.min)&&(!f.max||p.age<=+f.max)&&(!q||(p.name+" "+p.job+" "+p.edu+" "+p.comm+" "+p.city).toLowerCase().includes(q)));
-  l.sort((a,b)=>f.sort==="age"?a.age-b.age||a.o-b.o:(mine?(score(b)-score(a))||a.o-b.o:a.o-b.o));
+  let l=all.filter(p=>!blocked.includes(String(p.id))&&(!f.g||p.g===f.g)&&(!f.state||p.state===f.state)&&(!f.city||p.city===f.city)&&(!f.rel||p.rel===f.rel)&&(!f.min||p.age>=+f.min)&&(!f.max||p.age<=+f.max)&&(!q||((p.name||"")+" "+(p.job||"")+" "+(p.edu||"")+" "+(p.comm||"")+" "+(p.city||"")).toLowerCase().includes(q)));
+  l.sort((a,b)=>{
+    const r=(a.real?0:1)-(b.real?0:1);if(r)return r;
+    if(f.sort==="age")return a.age-b.age||(a.o||0)-(b.o||0);
+    return mine?(score(b)-score(a))||(a.o||0)-(b.o||0):(a.o||0)-(b.o||0);
+  });
   const opt=(v,sel,txt)=>`<option value="${esc(v)}" ${sel?"selected":""}>${esc(txt)}</option>`;
-  return hero()+`<div class="demo">${t("demo")}</div><div class="filters">
+  return hero()+`<div class="demo">${t("demo")}</div>
+  ${!user&&sb?`<div class="box" style="margin:0 0 14px;display:flex;gap:10px;align-items:center;justify-content:space-between"><span style="font-size:13px">${t("loginSee")}</span><button class="btn fill" style="flex:none;padding:8px 14px" onclick="go('mine')">${t("login")}</button></div>`:""}
+  <div class="filters">
   <select onchange="setF('g',this.value)">${opt("",!f.g,t("allG"))}${opt("F",f.g==="F",t("brides"))}${opt("M",f.g==="M",t("grooms"))}</select>
   <select onchange="setF('state',this.value)">${opt("",!f.state,t("allS"))}${STATES.map(s=>opt(s,f.state===s,s)).join("")}</select>
   <select onchange="setF('city',this.value)">${opt("",!f.city,t("allC"))}${cs.map(c=>opt(c.city,f.city===c.city,c.city)).join("")}</select>
@@ -232,15 +259,28 @@ function browse(){
   <footer><a href="privacy.html">${t("priv")}</a><a href="terms.html">${t("terms")}</a><div style="margin-top:8px">${t("rights")}</div></footer>`;
 }
 function listOf(ids,msg){
-  const l=PROFILES.filter(p=>ids.includes(p.id)&&!blocked.includes(p.id));
+  const l=allP().filter(p=>ids.includes(String(p.id))&&!blocked.includes(String(p.id)));
   return `<div class="sec"><h2>${t(tab)}</h2>${tab==="sent"?`<small>${paid?t("unlocked"):Math.min(sent.length,FREE)+"/"+FREE+" "+t("freeUsed")}</small>`:""}</div>`+(l.length?`<div class="grid">${l.map(p=>card(p)).join("")}</div>`:`<div class="empty"><div class="e">${tab==="short"?"⭐":"💌"}</div>${msg}</div>`);
 }
+function authView(){
+  const login=authMode==="login";
+  return `<div class="sec"><h2>${login?t("loginH"):t("signupH")}</h2></div>
+  <form onsubmit="doAuth(event)">
+  <label>${t("email")}</label><input name="email" type="email" required autocomplete="email">
+  <label>${t("password")}</label><input name="password" type="password" required minlength="6" autocomplete="${login?"current-password":"new-password"}">
+  ${authMsg?`<div class="demo" style="display:block;border-radius:12px">${esc(authMsg)}</div>`:""}
+  <button class="btn fill" style="padding:13px" ${busy?"disabled":""}>${login?t("login"):t("signup")}</button>
+  <button type="button" class="btn" onclick="authMode='${login?"signup":"login"}';authMsg='';render()">${login?t("noAcc"):t("haveAcc")}</button></form>
+  <div class="note">${t("authNote")}</div>`;
+}
 function mineView(){
-  const m=mine||{g:"M"};
+  if(!user)return authView();
+  const m=mine||{g:"M",diet:"veg"};
   const o=(v,cur,txt)=>`<option value="${v}" ${cur===v?"selected":""}>${txt}</option>`;
-  return `<div class="sec"><h2>${t("createH")}</h2></div>
+  const ph=pendingPhoto?pendingPhoto.url:m.photo;
+  return `<div class="sec"><h2>${t("createH")}</h2><small>${esc(user.email||"")}</small></div>
   <form onsubmit="saveMine(event)">
-  <div class="center">${avatar({id:3,name:m.name||"?",photo:m.photo},1)}</div>
+  <div class="center" id="avPrev">${avatar({id:3,name:m.name||"?",photo:ph},1)}</div>
   <label>${t("photo")}</label><input type="file" accept="image/*" onchange="pickPhoto(this)">
   <label>${t("name")}</label><input name="name" value="${esc(m.name)}" required maxlength="60">
   <div class="g2"><div><label>${t("gender")}</label><select name="g">${o("M",m.g,t("male"))}${o("F",m.g,t("female"))}</select></div>
@@ -253,9 +293,10 @@ function mineView(){
   <div><label>${t("job")}</label><input name="job" value="${esc(m.job)}" maxlength="40"></div></div>
   <label>${t("diet")}</label><select name="diet">${o("veg",m.diet,t("veg"))}${o("nonveg",m.diet,t("nonveg"))}</select>
   <label>${t("bio")}</label><textarea name="bio" rows="3" maxlength="300">${esc(m.bio)}</textarea>
-  <button class="btn fill" style="padding:13px">${t("save")}</button></form>
-  ${mine?`<div class="sec" style="margin-top:18px"><h2>Preview</h2></div><div class="grid">${card({...mine,id:mine.id||3},true)}</div>`:""}
-  <div class="note">${t("savedNote")}</div>`;
+  <button class="btn fill" style="padding:13px" ${busy?"disabled":""}>${t("save")}</button></form>
+  ${mine?`<div class="sec" style="margin-top:18px"><h2>Preview</h2></div><div class="grid">${card(mine,true)}</div>`:""}
+  <div class="note">${t("savedNote")}</div>
+  <button class="btn" style="width:100%" onclick="logout()">${t("logout")}</button>`;
 }
 /* ---------- app shell ---------- */
 function nav(){
@@ -270,12 +311,28 @@ function render(){
   document.getElementById("app").innerHTML=tab==="browse"?browse():tab==="short"?listOf(short,t("noShort")):tab==="sent"?listOf(sent,t("noSent")):mineView();
 }
 function go(k){tab=k;render();window.scrollTo({top:0,behavior:"smooth"})}
-function tog(id){short=short.includes(id)?short.filter(x=>x!==id):[...short,id];sv("short",short);render()}
-function intr(id){
-  if(sent.includes(id))return;
+async function tog(id){
+  id=String(id);const on=short.includes(id);
+  short=on?short.filter(x=>x!==id):[...short,id];persist("short",short);
+  if(isReal(id)&&sb&&user){
+    const r=on?await sb.from("shortlists").delete().match({user_id:user.id,profile_id:id}):await sb.from("shortlists").insert({profile_id:id});
+    if(r.error)console.warn(r.error.message);
+  }
+  render();
+}
+async function intr(id){
+  id=String(id);if(sent.includes(id))return;
+  if(!user){closeM();alert(t("loginNeeded"));go("mine");return}
   if(!mine){closeM();alert(t("needProfile"));go("mine");return}
   if(sent.length>=FREE&&!paid){showPay(id);return}
-  sent.push(id);sv("sent",sent);
+  if(isReal(id)){
+    const {error}=await sb.from("interests").insert({to_user:id});
+    if(error&&error.code!=="23505"){
+      if(error.code==="42501"||/row-level security/i.test(error.message||"")){showPay(id)}else{alert(error.message)}
+      return;
+    }
+  }
+  sent.push(id);persist("sent",sent);
   const open=document.getElementById("modal").innerHTML;
   render();if(open)openP(id);
 }
@@ -285,29 +342,95 @@ function showPay(id){
   <p style="font-size:14px;color:var(--muted)">${t("payP")}</p>
   <div style="font-size:40px;font-weight:700;margin:8px 0;font-family:'Playfair Display',serif">₹${PRICE}</div>
   <ul style="text-align:left;font-size:14px;line-height:1.9;margin:6px 0 14px"><li>${t("pb1")}</li><li>${t("pb2")}</li><li>${t("pb3")}</li></ul>
-  <button class="btn fill" style="width:100%;padding:14px;font-size:15px" onclick="payDemo(${id})">${t("payBtn")}</button>
+  <button class="btn fill" style="width:100%;padding:14px;font-size:15px" onclick="payDemo('${id}')">${t("payBtn")}</button>
   <div class="demo" style="display:block;margin:12px 0 0;border-radius:12px">${t("payNote")}</div>
   <button class="btn" style="width:100%;margin-top:10px" onclick="closeM()">${t("later")}</button></div></div>`;
 }
-function payDemo(id){paid=true;sv("paid",true);closeM();intr(id)}
-function saveMine(e){
-  e.preventDefault();const d=Object.fromEntries(new FormData(e.target));
-  d.age=+d.age;d.photo=mine&&mine.photo||undefined;mine=d;sv("mine",mine);render();window.scrollTo({top:0,behavior:"smooth"});
+async function payDemo(id){
+  if(!sb||!user){closeM();alert(t("loginNeeded"));go("mine");return}
+  const {error}=await sb.rpc("demo_unlock");
+  if(error){alert(error.message);return}
+  paid=true;closeM();await intr(id);
+}
+async function doAuth(e){
+  e.preventDefault();
+  if(!sb){authMsg=t("cloudOff");render();return}
+  const d=Object.fromEntries(new FormData(e.target));
+  busy=true;authMsg="";render();
+  let r;
+  try{
+    r=authMode==="login"?await sb.auth.signInWithPassword({email:d.email,password:d.password})
+      :await sb.auth.signUp({email:d.email,password:d.password,options:{emailRedirectTo:location.origin+location.pathname}});
+  }catch(err){r={error:{message:String(err.message||err)}}}
+  busy=false;
+  if(r.error)authMsg=r.error.message;
+  else if(authMode==="signup"&&!(r.data&&r.data.session))authMsg=t("checkEmail");
+  render();
+}
+async function logout(){if(sb)await sb.auth.signOut()}
+async function loadCloud(){
+  if(!sb)return;
+  if(!user){
+    REAL=[];mine=null;paid=false;pendingPhoto=null;
+    short=short.filter(x=>!isReal(x));sent=sent.filter(x=>!isReal(x));blocked=blocked.filter(x=>!isReal(x));
+    render();return;
+  }
+  const [p,m,i,s,b,mem]=await Promise.all([
+    sb.from("profiles").select("*").neq("id",user.id).order("created_at",{ascending:false}).limit(300),
+    sb.from("profiles").select("*").eq("id",user.id).maybeSingle(),
+    sb.from("interests").select("to_user").eq("from_user",user.id),
+    sb.from("shortlists").select("profile_id"),
+    sb.from("blocks").select("blocked_id"),
+    sb.from("memberships").select("paid").maybeSingle()]);
+  REAL=(p.data||[]).map(fromRow);
+  mine=m.data?fromRow(m.data):null;
+  paid=!!(mem.data&&mem.data.paid);
+  sent=[...sent.filter(x=>!isReal(x)),...(i.data||[]).map(r=>r.to_user)];
+  short=[...short.filter(x=>!isReal(x)),...(s.data||[]).map(r=>r.profile_id)];
+  blocked=[...blocked.filter(x=>!isReal(x)),...(b.data||[]).map(r=>r.blocked_id)];
+  render();
+}
+async function saveMine(e){
+  e.preventDefault();
+  if(!sb||!user){alert(t("loginNeeded"));return}
+  const d=Object.fromEntries(new FormData(e.target));
+  busy=true;
+  let photo_url=mine&&mine.real&&mine.photo?mine.photo:null;
+  if(pendingPhoto){
+    const path=user.id+"/avatar.jpg";
+    const up=await sb.storage.from("photos").upload(path,pendingPhoto.blob,{upsert:true,contentType:"image/jpeg"});
+    if(up.error){busy=false;alert(up.error.message);return}
+    photo_url=sb.storage.from("photos").getPublicUrl(path).data.publicUrl+"?v="+Date.now();
+  }
+  const c=CITIES.find(x=>x.city.toLowerCase()===d.city.trim().toLowerCase());
+  const row={id:user.id,name:d.name.trim(),gender:d.g,age:+d.age,city:d.city.trim(),state:c?c.state:null,edu:d.edu||null,job:d.job||null,comm:d.comm||null,rel:d.rel||null,height:d.height||null,diet:d.diet,bio:d.bio||null,photo_url,updated_at:new Date().toISOString()};
+  const {error}=await sb.from("profiles").upsert(row);
+  busy=false;
+  if(error){alert(error.message);render();return}
+  pendingPhoto=null;mine=fromRow(row);render();window.scrollTo({top:0,behavior:"smooth"});
 }
 function pickPhoto(inp){
   const file=inp.files&&inp.files[0];if(!file)return;
   const img=new Image(),url=URL.createObjectURL(file);
   img.onload=()=>{
-    const S=320,c=document.createElement("canvas");c.width=c.height=S;const x=c.getContext("2d");
+    const S=480,c=document.createElement("canvas");c.width=c.height=S;const x=c.getContext("2d");
     const m=Math.min(img.width,img.height),sx=(img.width-m)/2,sy=(img.height-m)/2;
     x.drawImage(img,sx,sy,m,m,0,0,S,S);URL.revokeObjectURL(url);
-    mine=Object.assign({g:"M"},mine||{},{photo:c.toDataURL("image/jpeg",.8)});sv("mine",mine);render();
+    c.toBlob(b=>{
+      pendingPhoto={blob:b,url:c.toDataURL("image/jpeg",.8)};
+      const el=document.getElementById("avPrev");if(el)el.innerHTML=`<img class="av big" src="${pendingPhoto.url}" alt="">`;
+    },"image/jpeg",.82);
   };img.src=url;
 }
 function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.finally(()=>{deferredPrompt=null;render()})}
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;if(tab==="browse")render()});
 document.getElementById("bLang").onclick=()=>{lang=lang==="en"?"hi":"en";sv("lang",lang);render()};
 document.getElementById("bTheme").onclick=()=>{theme=theme==="dark"?"light":"dark";sv("theme",theme);render()};
+if(sb)sb.auth.onAuthStateChange((ev,session)=>{
+  const u=session&&session.user||null;
+  if(u&&user&&u.id===user.id)return;
+  user=u;setTimeout(loadCloud,0);
+});
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 render();
 </script>

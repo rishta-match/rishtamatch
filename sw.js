@@ -1,4 +1,4 @@
-const CACHE = "rishtamatch-v3";
+const CACHE = "rishtamatch-v4";
 const FILES = ["./", "index.html", "profiles.js", "privacy.html", "terms.html", "manifest.json", "icon.svg"];
 
 self.addEventListener("install", (e) => {

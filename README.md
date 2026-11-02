@@ -9,7 +9,8 @@ A simple, modern matrimony web app (demo). Free to host on GitHub Pages.
 - 1000 sample profiles across 100 Indian cities (7 brides + 3 grooms per city); filter by gender, state, city, religion and age; "Load more" paging
 - Match % score (after you create your own profile)
 - Profile detail sheet, shortlist, send interest
-- Create your profile with photo upload (saved only in your browser)
+- Real accounts: email sign-up/login (Supabase), profile + photo saved in the database, other members see real profiles
+- Interests, shortlist, block and report stored in the database; 2 free interests then a (demo) paywall
 - WhatsApp share, Report and Block
 - Installable as an app (PWA) and works offline
 - Privacy Policy and Terms pages (starter templates)
@@ -26,11 +27,12 @@ A simple, modern matrimony web app (demo). Free to host on GitHub Pages.
 ## Notes
 
 - Sample profiles are fictional.
-- Data is stored only in the browser (localStorage). Real login and a shared database are the next step.
+- Backend: Supabase (Postgres + Auth + Storage) with Row Level Security. The publishable key in `index.html` is meant to be public; never put a service_role key in this repo.
+- The paywall uses a demo unlock (`demo_unlock()` function controlled by `app_settings.demo_mode`). Turn it off and add Razorpay + a verified webhook before charging real money.
 
 ## Next steps
 
-1. Real login (phone OTP / Google) and a database (Firebase or Supabase)
+1. Google / phone OTP login
 2. Profile verification and photo moderation
-3. Chat after both sides accept interest
-4. Premium plan
+3. Real payments (Razorpay) with server-side verification
+4. Chat after both sides accept interest
